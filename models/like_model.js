@@ -1,11 +1,12 @@
 import mongoose from "mongoose";
 
 const likeSchema = mongoose.Schema({
-  post_id: {
+  user_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
   },
+
   post_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Post",
