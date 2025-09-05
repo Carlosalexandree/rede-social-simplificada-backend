@@ -69,43 +69,42 @@ export const getUserById = async (req, res) => {
   }
 };
 
+function validadeUserUpdate(name, email) {
+  const isNameValid = typeof name === "string" && name && name.trim();
+  const isEmailValid = typeof email === "string" && email && email.trim();
+
+  if (!isNameValid) {
+    return "Nome é obrigatório";
+  }
+
+  if (!isEmailValid) {
+    return "Email é obrigatório";
+  }
+
+  return null;
+}
 export const updateUser = async (req, res) => {
   const { id } = req.params;
   const { name, email, avatar_url, bio } = req.body;
 
-  function validadeUserUpdate(name, email) {
-    const isNameValid = typeof name === "string" && name && name.trim();
-    const isEmailValid = typeof email === "string" && email && email.trim();
-
-    if (!isNameValid) {
-      return "Nome é obrigatório";
-    }
-
-    if (!isEmailValid) {
-      return "Email é obrigatório";
-    }
-
-    return null;
-  }
-
-  const error = validadeUserUpdate(name, email);
-  if (error) {
-    res.status(400).json({ error });
+  const errorValid = validadeUserUpdate(name, email);
+  if (errorValid) {
+    res.status(400).json({ errorValid });
     return;
   }
 
   try {
-    const updateUser = await User.findByIdAndUpdate(
+    const user = await User.findByIdAndUpdate(
       id,
       { name, email, avatar_url, bio },
-      { new: true }
+      { new: true },
     );
 
-    if (!updateUser) {
+    if (!user) {
       res.status(404).json({ error: "Usuário não encontrado" });
       return;
     }
-    res.status(200).json(updateUser);
+    res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
