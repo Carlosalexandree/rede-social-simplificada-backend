@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Comment from "../models/comment_model.js";
 import { isDataValid } from "../shared/helpers.js";
 
@@ -5,8 +6,8 @@ export const createComment = async (req, res) => {
   const { user_id, post_id, content } = req.body;
 
   const isTextValid = isDataValid(content);
-  const isUseridValid = isDataValid(user_id);
-  const isPostidValid = isDataValid(post_id);
+  const isUseridValid = mongoose.Types.ObjectId.isValid(user_id);
+  const isPostidValid = mongoose.Types.ObjectId.isValid(post_id);
 
   if ((!isTextValid, !isUseridValid, !isPostidValid)) {
     res.status(400).json({ error: "Dados inválidos" });
