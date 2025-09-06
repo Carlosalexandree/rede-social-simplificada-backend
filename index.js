@@ -5,6 +5,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import userRouter from "./routes/user_routes.js";
 import commentRouter from "./routes/comment_routes.js";
+import postRouter from "./routes/post_routes.js";
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(cors());
 
 app.use("/users", userRouter);
 app.use("/comment", commentRouter);
+app.use("/post", postRouter);
 
 mongoose
   .connect("mongodb://neco:123456@127.0.0.1:27017/")
