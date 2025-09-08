@@ -26,26 +26,6 @@ export const createComment = async (req, res) => {
   }
 };
 
-export const getComments = async (req, res) => {
-  try {
-    const findAllComments = await Comment.find({});
-    res.status(200).json(findAllComments);
-  } catch (error) {
-    res.status(500).json({ error: "Comentario não encontrado" });
-  }
-};
-
-export const getCommentById = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const comment = await Comment.findById(id);
-
-    res.status(200).json({ comment });
-  } catch (error) {
-    res.status(500).json({ error: "Erro ao buscar comentario" });
-  }
-};
-
 export const updateComment = async (req, res) => {
   const { id } = req.params;
   const { content } = req.body;

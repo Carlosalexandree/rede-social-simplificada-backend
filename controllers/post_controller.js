@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import Post from "../models/post_model.js";
-import { isDataValid } from "../shared/helpers";
+import { isDataValid } from "../shared/helpers.js";
 
 export const createPost = async (req, res) => {
   const { user_id, content, type } = req.body;

@@ -1,8 +1,7 @@
-import express from "express";
 import Like from "../models/like_model.js";
 
 export const toggleLike = async (req, res) => {
-  const { post_id, comment_id } = req.body;
+  const { post_id } = req.body;
   const user_id = req.user.id;
 
   try {
@@ -19,7 +18,6 @@ export const toggleLike = async (req, res) => {
     const like = await Like.create({
       user_id,
       post_id: post_id || null,
-      comment_id: comment_id || null,
     });
     res.status(201).json(like);
   } catch (error) {
@@ -28,12 +26,11 @@ export const toggleLike = async (req, res) => {
 };
 
 export const countLikes = async (req, res) => {
-  const { post_id, comment_id } = req.params;
+  const { post_id } = req.params;
 
   try {
     const count = await Like.countDocuments({
-      post_id: post_id || null,
-      comment_id: comment_id || null,
+      post_id,
     });
     res.json({ total_likes: count });
   } catch (error) {
@@ -42,12 +39,11 @@ export const countLikes = async (req, res) => {
 };
 
 export const getLikes = async (req, res) => {
-  const { post_id, coment_id } = req.params;
+  const { post_id } = req.params;
 
   try {
     const likes = await Like.find({
       post_id: post_id || null,
-      coment_id: coment_id || null,
     }).populate("user_id", "name email");
     res.json(likes);
   } catch (error) {
