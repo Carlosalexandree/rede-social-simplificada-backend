@@ -26,6 +26,32 @@ export const createComment = async (req, res) => {
   }
 };
 
+export const getComments = async (req, res) => {
+  const { post_id } = req.params;
+
+  try {
+    const comments = await Comment.find({
+      post_id: post_id || null,
+    }).populate("user_id", "name email");
+    res.json(comments);
+  } catch (error) {
+    res.status(500).json({ error: "Erro ao listar comentarios" });
+  }
+};
+
+export const countComments = async (req, res) => {
+  const { post_id } = req.params;
+
+  try {
+    const count = await Comment.countDocuments({
+      post_id,
+    });
+    res.json({ total_comments: count });
+  } catch (error) {
+    res.status(500).json({ error: "Erro ao contar likes " });
+  }
+};
+
 export const updateComment = async (req, res) => {
   const { id } = req.params;
   const { content } = req.body;
