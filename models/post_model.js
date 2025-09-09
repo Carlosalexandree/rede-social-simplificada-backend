@@ -11,14 +11,6 @@ const PostSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    likes_count: {
-      type: Number,
-      default: 0,
-    },
-    comments_count: {
-      type: Number,
-      default: 0,
-    },
   },
   {
     timestamps: { createdAt: "created_at" },

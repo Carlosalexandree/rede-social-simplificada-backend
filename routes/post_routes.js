@@ -9,13 +9,19 @@ import {
 } from "../controllers/post_controller.js";
 
 import { countLikes, getLikes } from "../controllers/like_controller.js";
+import {
+  countComments,
+  getComments,
+} from "../controllers/comment_controller.js";
 
 const router = express.Router();
 
 router.post("/", createPost);
 
-router.get("/:id/like/count", countLikes);
-router.get("/:id/like", getLikes);
+router.get("/:id/comments/count", countComments);
+router.get("/:id/comments", getComments);
+router.get("/:id/likes/count", countLikes);
+router.get("/:id/likes", getLikes);
 router.get("/:id", getPostById);
 router.get("/", getPosts);
 
